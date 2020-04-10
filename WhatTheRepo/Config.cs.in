@@ -4,11 +4,17 @@ using System.Text;
 
 namespace WhatTheRepo
 {
-    class Config
+    class TwitterConfig
     {
         public string CONSUMER_KEY = "";
         public string CONSUMER_SECRET = "";
         public string ACCESS_TOKEN = "";
         public string ACCESS_TOKEN_SECRET = "";
+    }
+
+    class GithubConfig
+    {
+        public string USERNAME = "";
+        public string PASSWORD = "";
     }
 }

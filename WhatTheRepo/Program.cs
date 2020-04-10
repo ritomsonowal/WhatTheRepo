@@ -10,13 +10,14 @@ namespace WhatTheRepo
         {
             Console.WriteLine("================STARTING WHAT-THE-REPO================");
 
-            Config config = new Config();
+            TwitterConfig twitterConfig = new TwitterConfig();
+            GithubConfig githubConfig = new GithubConfig();
 
             // Disable the exception swallowing to allow exception to be thrown by Tweetinvi
             ExceptionHandler.SwallowWebExceptions = false;
 
-            // Set up your credentials (https://apps.twitter.com)
-            Auth.SetUserCredentials(config.CONSUMER_KEY, config.CONSUMER_SECRET, config.ACCESS_TOKEN, config.ACCESS_TOKEN_SECRET);
+            // Set up your credentials 
+            Auth.SetUserCredentials(twitterConfig.CONSUMER_KEY, twitterConfig.CONSUMER_SECRET, twitterConfig.ACCESS_TOKEN, twitterConfig.ACCESS_TOKEN_SECRET);
 
             try
             {
