@@ -20,15 +20,6 @@ namespace WhatTheRepo
 
         public void AddTweet(long repo_id, string date, string time, string tweet_body)
         {
-            //List<data> _data = new List<data>();
-            //_data.Add(new data()
-            //{
-            //    RepoID = repo_id,
-            //    Date = date,
-            //    Time = time,
-            //    TweetBody = tweet_body
-            //});
-
             try
             {
                 var initialJson = File.ReadAllText(jsonFile);
@@ -49,9 +40,21 @@ namespace WhatTheRepo
             }
         }
 
-        public void SearchRepo(long repo_id)
+        public bool SearchTweets(long repo_id)
         {
+            var tweetsJson = File.ReadAllText(jsonFile);
+            var list = JsonConvert.DeserializeObject<List<Data>>(tweetsJson);
 
+            int i;
+            int n = list.Count;
+
+            for ( i=0; i<n; i++)
+            {
+                if (list[i].RepoID == repo_id)
+                {
+                    return true;
+                }
+            } return false;
         }
 
     }

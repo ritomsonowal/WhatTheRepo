@@ -341,3 +341,6 @@ healthchecksdb
 
 # Config Files
 WhatTheRepo/Config.cs
+
+# Tweets JSON
+WhatTheRepo/tweets.js

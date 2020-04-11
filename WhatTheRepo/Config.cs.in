@@ -16,5 +16,8 @@ namespace WhatTheRepo
     {
         public string USERNAME = "";
         public string PASSWORD = "";
+
+        // Uncomment the following code to use github access token instead
+        // public string ACCESS_TOKEN = "";
     }
 }
