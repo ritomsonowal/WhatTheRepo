@@ -62,7 +62,7 @@ namespace WhatTheRepo
             var tokenAuth = new Credentials(githubConfig.ACCESS_TOKEN); // Can also authenticate using username and password
             client.Credentials = tokenAuth;
 
-            string key = "shit";
+            string key = tweets.GetKeyword();
 
             // Search for repos
             var request = new SearchRepositoriesRequest(key)
@@ -97,7 +97,7 @@ namespace WhatTheRepo
                     date = today.ToString("dd/MM/yyyy");
                     time = now.ToString("h:mm:ss tt");
 
-                    body = "Oh look! I've found a repo : " + obj.Name + " on github that says - " + obj.Description;
+                    body = getTweetBody( obj.HtmlUrl, obj.Name, obj.Description, obj.StargazersCount, obj.Language);
 
                     if (tweets.SearchTweets(repo_id) == false)
                     {
@@ -131,6 +131,74 @@ namespace WhatTheRepo
 
             return;
 
+        }
+
+        static string getTweetBody( string repo_url, string repo_name, string repo_desc, int repo_star_count, string repo_language)
+        {
+            int min, max;
+            string body = "";
+
+            Random random = new Random();
+            min = repo_desc.Length < 50 ? 4 : 1;
+            max = repo_desc.Length > 100 ? 5 : 7;
+            int choice = random.Next( min, max);
+
+            // handle specific cases
+            if (repo_desc.Length == 0)
+            {
+                choice = 8;
+            } if (repo_desc.Length > 50 && repo_language.Length != 0)
+            {
+                choice = 4;
+            }
+            
+            // Don't act smart and change indentation
+            switch (choice)
+            {
+                case 1:
+                    body = $@"Someone on Github thought it would be a funny to name a repo : {repo_name}.
+
+[repo]{repo_url}";
+                    break;
+                case 2:
+                    body = $@"Who would've thought a {repo_language} repo named {repo_name} would have {repo_star_count.ToString()} stargazers.
+                        
+[repo] {repo_url}"; 
+                    break;
+                case 3:
+                    body = $@"Github needs more repositories with such creative names like {repo_name}.
+                        
+[repo] {repo_url}";
+                    break;
+                case 4:
+                    body = $@"A {repo_name} project called {repo_language} (yup!!!)
+                        
+[repo] {repo_url}";
+                    break;
+                case 5:
+                    body = $@"'{repo_desc}' is apparently what this repo does. Sounds uncool, {repo_name}!
+                        
+[repo] {repo_url}";
+                    break;
+                case 6:
+                    body = $@"The next big thing in software - {repo_name} : '{repo_desc}'.
+                        
+[repo] {repo_url}";
+                    break;
+                case 7:
+                    body = $@"A developer used {repo_language} to make a {repo_name}.
+Description: {repo_desc} (mostly...)
+                        
+[repo] {repo_url}";
+                    break;
+                case 8:
+                    body = $@"{repo_name} - A repo so good the owner didn't bother to write a description for it.
+                        
+[repo] {repo_url}";
+                    break;
+            }
+
+            return body;
         }
     }
 }
