@@ -49,6 +49,9 @@ namespace WhatTheRepo
                 // Twitter API Request has been failed; Bad request, network failure or unauthorized request
                 Console.WriteLine("Something went wrong when we tried to execute the http request : '{0}'", ex.TwitterDescription);
             }
+
+            Console.WriteLine("-------------------------------------------------------------------");
+            //Console.ReadLine();
         }
 
         static void getTweet()
